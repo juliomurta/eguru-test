@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Eguru.Ecommerce.Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "E-Guru Ecommerce";
+}
+
+<div class="jumbotron">
+    <h1>Aproveite nossas ofertas</h1>
+    <p class="lead">Somente na E-Guru você tem descontos de 70%, 80% ou até 90%.</p>
+</div>
+
+<div class="row">
+
+    @foreach(var item in Model)
+    {
+        <div class="col-md-4">
+            <h2>@item.Name</h2>
+            <img src="@Url.Content(item.ImagePath)" height="200px" width="300px" />
+            <p>
+                @item.Description
+            </p>
+            @if (item.IsAvailable)
+            {
+                <div class="exibir-preco">Por apenas @item.Price.ToString("C")</div>
+            }
+            else
+            {
+                <div class="exibir-preco">Esgotado</div>
+            }
+            <p><a class="btn btn-default" href="@Url.Action("Details", "Home", new { id = item.Id })">Ver detalhes</a></p>
+        </div>
+    }
+</div>

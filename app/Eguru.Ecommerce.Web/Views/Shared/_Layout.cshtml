@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sua loja virtual!</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .table tbody tr td{
+            font-weight:bolder;
+            font-size:18px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("E-Guru", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })            
+            </div>          
+            <div style="float:left; margin-left:75%; margin-top:0" class="navbar-brand">
+
+                @{ 
+                    var quantidadeCarrinho = 0;
+
+                    if (Session["MeuCarrinho"] != null)
+                    {
+                        var order = (Eguru.Ecommerce.Domain.Entities.Order)Session["MeuCarrinho"];
+                       
+                        foreach (var item in order.Items)
+                        {
+                            quantidadeCarrinho += item.Quantity;
+                        }
+                    }
+                }
+
+                <a href="@Url.Action("VerItens", "Carrinho")" style="color:white">Meu Carrinho (@quantidadeCarrinho)</a>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Júlio Murta</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

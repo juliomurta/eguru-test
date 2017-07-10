@@ -1,0 +1,78 @@
+﻿@model Eguru.Ecommerce.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 style="text-align:right">@Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <hr />
+    <div class="col-md-6">
+        <img src="@Url.Content(Model.ImagePath)" width="500px" height="500px" />
+    </div>
+    <div class="col-md-6">
+
+        @Html.DisplayFor(model => model.Description)
+
+        @if (Model.IsAvailable)
+        {
+            <div style="color:#c10f0f">
+                Restam apenas <span class="qtde-estoque">@Html.DisplayFor(model => model.Quantity)</span>  em estoque
+            </div>
+
+            <div class="exibir-preco">
+                Preço @Model.Price.ToString("C")
+            </div>
+
+            <div style="text-align:right">
+                <label>Quantidade desejada:</label>
+                <input type="text" value="0" class="qtde-pedido" style="width:100px" />
+                <input type="hidden" value="@Model.Id" class="id-produto" />
+                <a class="btn btn-danger add-carrinho">
+                    Adicionar ao carrinho
+                </a>
+            </div>
+        }
+        else
+        {
+            <div style="color:#c10f0f">Esgotado</div>
+        }
+
+    </div>
+</div>
+<div style="clear:both"></div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".add-carrinho").click(function () {
+            var qtdeEstoque = parseInt($(".qtde-estoque").text());
+            var qtdeDesejada = parseInt($(".qtde-pedido").val());
+            var id = $(".id-produto").val();
+
+            if (qtdeDesejada < 1 || qtdeDesejada > qtdeEstoque) {
+                alert("Insira um valor acima de zero e menor ou igual a quantidade em estoque.");
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Action("Adicionar", "Carrinho")",
+                data: {
+                    id: id,
+                    quantity: qtdeDesejada
+                },
+                success: function (data) {
+                    if (data.Resultado == "Sucesso") {
+                        alert("Produto adicionado ao carrinho com sucesso!");
+                        location.reload();
+                    } else if (data.Resultado == "JaExiste") {
+                        alert("Item já foi existe no carrinho");
+                    }
+                },
+                error: function (data) {
+                    alert("Ocorreu um erro durante o processamento");
+                }
+            });
+        });
+    });
+</script>

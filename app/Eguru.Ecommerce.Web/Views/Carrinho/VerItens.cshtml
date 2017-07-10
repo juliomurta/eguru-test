@@ -1,0 +1,74 @@
+﻿@model Eguru.Ecommerce.Domain.Entities.Order
+
+@{
+    ViewBag.Title = "Meu Carrinho - Checagem de Itens";
+}
+
+<h2>Meus Itens</h2>
+
+@if (Model.Items.Count > 0)
+{
+    <table class="table">
+        <thead>
+        <th>...</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td><img src="@Url.Content(item.Product.ImagePath)" width="200px" height="200px" /></td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="text-align:right">
+        Total do pedido: <span class="exibir-preco">@Model.Total.ToString("C")</span>
+    </div>
+    <div style="text-align:right">
+        <label>Forma de pagamento: </label>
+        <input type="radio" name="forma-pagamento" value="@Eguru.Ecommerce.Domain.Enums.FormOfPayment.BankSlip"> Boleto Bancário
+        <input type="radio" name="forma-pagamento" value="@Eguru.Ecommerce.Domain.Enums.FormOfPayment.CreditCard"> Cartão de Crédito
+        <input type="button" class="btn btn-danger finalizar-pedido" value="Finalizar Pedido" />
+    </div>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">Você não possui itens no carrinho.</div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $(".finalizar-pedido").click(function () {
+            var formaPagamento = $("input[name='forma-pagamento']:checked").val();
+            if (formaPagamento != undefined) {
+                $.ajax({
+                    url: "@Url.Action("FinalizarPedido", "Carrinho")",
+                    data: {
+                        formaPagamento: formaPagamento
+                    },
+                    success: function (data) {
+                        if (data.Resultado == "Sucesso") {
+                            alert("Pedido finalizado com sucesso!");
+                            location.href = "@Url.Action("Index", "Home")";
+                        } else {
+                            alert("Ocorreu um erro durante a finalização do pedido.");
+                        }
+                    },
+                    error: function (data) {
+                        alert("Ocorreu um erro durante o processamento.");
+                    }
+                });
+            } else {
+                alert("Selecione uma forma de pagamento.");
+            }
+        });
+    });
+</script>

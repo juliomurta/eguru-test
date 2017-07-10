@@ -1,0 +1,5 @@
+C:\Users\JULIOMURTA\Documents\Visual Studio 2015\Projects\eguru-ecommerce\app\Eguru.Ecommerce.Domain\Eguru.Ecommerce.Domain\bin\Debug\Eguru.Ecommerce.Domain.dll
+C:\Users\JULIOMURTA\Documents\Visual Studio 2015\Projects\eguru-ecommerce\app\Eguru.Ecommerce.Domain\Eguru.Ecommerce.Domain\bin\Debug\Eguru.Ecommerce.Domain.pdb
+C:\Users\JULIOMURTA\Documents\Visual Studio 2015\Projects\eguru-ecommerce\app\Eguru.Ecommerce.Domain\Eguru.Ecommerce.Domain\obj\Debug\Eguru.Ecommerce.Domain.csprojResolveAssemblyReference.cache
+C:\Users\JULIOMURTA\Documents\Visual Studio 2015\Projects\eguru-ecommerce\app\Eguru.Ecommerce.Domain\Eguru.Ecommerce.Domain\obj\Debug\Eguru.Ecommerce.Domain.dll
+C:\Users\JULIOMURTA\Documents\Visual Studio 2015\Projects\eguru-ecommerce\app\Eguru.Ecommerce.Domain\Eguru.Ecommerce.Domain\obj\Debug\Eguru.Ecommerce.Domain.pdb
